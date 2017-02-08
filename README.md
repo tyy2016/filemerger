@@ -6,3 +6,8 @@ A filemerger is someone who will merge duplicated files on your disk. Basically 
 3. store md5 and count in a key-value(md5-count) store
 4. if a md5 shows twice or more, get the filenames and make result
 5. show results and let user decide which file will be removed
+
+challenges:
+
+1. bulk files high performance
+2. file security (how to choose which file will be saved ?)
