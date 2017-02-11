@@ -1,7 +1,6 @@
 package main
 
 import (
-	log "github.com/mlycore/tools/mylog"
 	"os"
 	"fmt"
 	"filemerger"
@@ -19,6 +18,6 @@ func main() {
 		Usage()
 	}
 
-	fp := new(filemerger.FileMerger)
-	fp.Run()
+	fm := new(filemerger.FileMerger)
+	fm.Run()
 }

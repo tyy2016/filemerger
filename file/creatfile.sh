@@ -1,6 +1,7 @@
 #!/bin/bash
 
-WORK_DIR="/Users/baidu/GoglandProjects/filemerger/file"
+# WORK_DIR="/Users/baidu/GoglandProjects/filemerger/file"
+WORK_DIR="./file"
 
 cd ${WORK_DIR}
 
