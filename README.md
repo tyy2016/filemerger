@@ -8,7 +8,13 @@ A filemerger is someone who will merge duplicated files on your disk. Basically 
 5. show results and let user decide which file will be removed
 6. one of the duplicated file will be saved, and the others will be deleted and use soft link file instead.
 
+steps:
+
+1. present working directory (only files)
+2. present working directory (iterated directories)
+3. specified working directory
+
 challenges:
 
-1. bulk files high performance
+1. bulk files high performance (velocity, memory pressure, etc)
 2. file security (how to choose which file will be saved ?)
