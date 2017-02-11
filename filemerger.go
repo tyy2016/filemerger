@@ -15,9 +15,6 @@ func Usage() {
 }
 
 func main() {
-	var logger = log.NewLogger(os.Stderr, 3)
-	logger.Infoln("Hello World")
-
 	if len(os.Args) != 2 {
 		Usage()
 	}
