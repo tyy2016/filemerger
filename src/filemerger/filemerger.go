@@ -30,6 +30,7 @@ func (fm *FileMerger) calMd5(fileList []string) {
 	for _, f := range fileList {
 		md5 := fmutils.GetFileMd5(f)
 		fm.Count[md5]++
+		//TODO: keep the same soft link source
 		if md5 != "" {
 			if fm.Count[md5] > 1 {
 				prev := fm.Filename[md5]

@@ -14,6 +14,7 @@ func NullFileMd5() [md5.Size]byte {
 
 func GetFilenameList(directory string) []string {
 
+	//TODO: get the absolute path of the file
 	dirName, _ := ioutil.ReadDir(directory)
 	log.Infof("CurrentDir is %s", directory)
 
@@ -27,7 +28,6 @@ func GetFilenameList(directory string) []string {
 		}
 	}
 
-	//fmt.Println("Filename_list:", filenamelist)
 	log.Infoln("FilenameList: ", filenamelist)
 	return filenamelist
 }
