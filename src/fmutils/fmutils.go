@@ -1,13 +1,13 @@
 package fmutils
 
 import (
-	"fmt"
-	"os"
 	"crypto/md5"
+	"fmt"
 	"io/ioutil"
+	"os"
 )
 
-func NullFileMd5 () [md5.Size]byte {
+func NullFileMd5() [md5.Size]byte {
 	data := []byte("null file md5")
 	return md5.Sum(data)
 }
@@ -17,8 +17,7 @@ func GetFilenameList(directory string) []string {
 	log.Infof("this is mushroom, %d", 1)
 
 	dirName, _ := ioutil.ReadDir(directory)
-	log.Infof("CurrentDir is %s",directory)
-
+	log.Infof("CurrentDir is %s", directory)
 
 	filenamelist := make([]string, 0)
 	for i := 0; i < len(dirName); i++ {
@@ -62,9 +61,21 @@ func GetFileMd5(filename string) string {
 }
 
 func DeleteFile(filename string) {
+	err := os.Remove(filename)
+	if err != nil {
+		log.Errorf("Remove file failed ! %s", err)
+	} else {
+		log.Infof("Remove %s success", filename)
+	}
 
 }
 
-func MakeSoftLink(filename string) {
-
+// soft link: dst -> src
+func MakeSoftLink(src, dst string) {
+	err := os.Symlink(src,dst)
+	if err != nil{
+		log.Errorf("Creat link failed ! %s",err)
+	}else{
+		log.Infof("Creat link success")
+	}
 }
