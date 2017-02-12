@@ -17,7 +17,7 @@ func (fm *FileMerger) Run() {
 	fmt.Printf("FileMerger is handling directory: %s\n", fm.Directory)
 	log.Infof("FileMerger is handling directory: %s\n", fm.Directory)
 
-	fileList := fmutils.GetFilenameList("hello")
+	fileList := fmutils.GetFilenameList(fm.Directory)
 
 	fm.calMd5(fileList)
 }
@@ -41,5 +41,6 @@ func (fm *FileMerger) calMd5(fileList []string) {
 
 func (fm *FileMerger) merge(filename string) {
 	fmutils.DeleteFile(filename)
-	fmutils.MakeSoftLink(filename)
+	var src, dst string
+	fmutils.MakeSoftLink(src, dst)
 }
