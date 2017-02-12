@@ -15,32 +15,36 @@ func NewFileMerger(directory string) *FileMerger {
 
 func (fm *FileMerger) Run() {
 	fmt.Printf("FileMerger is handling directory: %s\n", fm.Directory)
-	log.Infof("FileMerger is handling directory: %s\n", fm.Directory)
+	log.Infof("FileMerger is handling directory: %s", fm.Directory)
 
-	fileList := fmutils.GetFilenameList(fm.Directory)
-
+	fileList := fm.getFilenameList()
 	fm.calMd5(fileList)
 }
 
-func (fm *FileMerger) getFilenameList() {
-	fmutils.GetFilenameList(fm.Directory)
+func (fm *FileMerger) getFilenameList() []string {
+	return fmutils.GetFilenameList(fm.Directory)
 }
 
 func (fm *FileMerger) calMd5(fileList []string) {
+	log.Infoln(len(fileList))
 	for _, f := range fileList {
 		md5 := fmutils.GetFileMd5(f)
 		fm.Count[md5]++
 		if md5 != "" {
-			fm.Filename[md5] = fm.Directory
 			if fm.Count[md5] > 1 {
-				fm.merge(f)
+				prev := fm.Filename[md5]
+				fm.merge(f, prev)
 			}
+			fm.Filename[md5] = f
+		} else {
+			fm.Filename[md5] = f
 		}
 	}
 }
 
-func (fm *FileMerger) merge(filename string) {
-	fmutils.DeleteFile(filename)
-	var src, dst string
-	fmutils.MakeSoftLink(src, dst)
+// current -> prev
+func (fm *FileMerger) merge(current, prev string) {
+	log.Infof("merger: current=%s, prev=%s", current, prev)
+	fmutils.DeleteFile(current)
+	fmutils.MakeSoftLink(current, prev)
 }
