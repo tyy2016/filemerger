@@ -15,8 +15,7 @@ func NullFileMd5() [md5.Size]byte {
 
 func GetFilenameList(directory string) []string {
 
-	log.Infof("this is mushroom, %d", 1)
-
+	//TODO: get the absolute path of the file
 	dirName, _ := ioutil.ReadDir(directory)
 	log.Infof("CurrentDir is %s", directory)
 
@@ -29,9 +28,9 @@ func GetFilenameList(directory string) []string {
 			filenamelist = append(filenamelist, filename)
 		}
 	}
-	fmt.Println("Filename_list:", filenamelist)
 
-	return nil
+	log.Infoln("FilenameList: ", filenamelist)
+	return filenamelist
 }
 
 func GetFileMd5(filename string) string {
@@ -55,7 +54,7 @@ func GetFileMd5(filename string) string {
 	}
 
 	checkSum := md5.Sum(content)
-	log.Infof("GetFileMd5 read %d bytes data, md5=%x", n, checkSum)
+	log.Infof("GetFileMd5 %s read %d bytes data, md5=%x", filename, n, checkSum)
 	digest := fmt.Sprintf("%x", checkSum)
 
 	return digest
@@ -68,14 +67,13 @@ func DeleteFile(filename string) {
 	} else {
 		log.Infof("Remove %s success", filename)
 	}
-
 }
 
 // soft link: dst -> src
-func MakeSoftLink(src, dst string) {
-	err := os.Symlink(src,dst)
+func MakeSoftLink(current, prev string) {
+	err := os.Symlink(prev, current)
 	if err != nil{
-		log.Errorf("Creat link failed ! %s",err)
+		log.Errorf("MakeSoftLink Error: error=%s", err)
 	}else{
 		log.Infof("Creat link success")
 	}
