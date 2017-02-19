@@ -44,8 +44,9 @@ func (fm *FileMerger) calMd5(fileList []string) {
 			if fm.Count[md5] > 1 {
 				prev := fm.Filename[md5]
 				fm.merge(f, prev)
+			}else {
+				fm.Filename[md5] = f
 			}
-			fm.Filename[md5] = f
 		} else {
 			fm.Filename[md5] = f
 		}
