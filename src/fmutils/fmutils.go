@@ -14,22 +14,43 @@ func NullFileMd5() [md5.Size]byte {
 }
 
 func GetFilenameList(directory string) []string {
+	err := os.Chdir(directory)
+	if err != nil{
+		log.Errorf("Open dir failed! Err:%s",err)
+	}else{
+		log.Infof("Open %s success",directory)
+	}
 
-	//TODO: get the absolute path of the file
-	dirName, _ := ioutil.ReadDir(directory)
+	dirName, err1 := ioutil.ReadDir(directory)
+	if err1 != nil {
+		log.Errorf("ReadDir %s failed, Error=%s", directory, err1)
+		os.Chdir("..")
+		return nil
+	}
 	log.Infof("CurrentDir is %s", directory)
 
 	filenamelist := make([]string, 0)
 	for i := 0; i < len(dirName); i++ {
+		pwd, _ := os.Getwd()
+		absFilePath := pwd + "/" + dirName[i].Name()
+		log.Infof("file:%s", absFilePath)
+
 		if dirName[i].IsDir() {
+			if dirName[i].Name() == "." || dirName[i].Name() == ".."{
+
+			} else {
+				subFileList := GetFilenameList(absFilePath)
+				filenamelist = append(filenamelist, subFileList...)
+				os.Chdir("..")
+			}
 
 		} else {
-			filename := dirName[i].Name()
-			filenamelist = append(filenamelist, filename)
+			filenamelist = append(filenamelist, absFilePath)
+			//fmt.Println(filenamelist)
 		}
 	}
 
-	log.Infoln("FilenameList: ", filenamelist)
+	log.Infof("FilenameList: len=%d", len(filenamelist))
 	return filenamelist
 }
 
@@ -78,3 +99,4 @@ func MakeSoftLink(current, prev string) {
 		log.Infof("Creat link success")
 	}
 }
+
