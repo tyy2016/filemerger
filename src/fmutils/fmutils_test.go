@@ -10,6 +10,10 @@ import "testing"
 //	DeleteFile("/Users/baidu/GoglandProjects/filemerger/file/0.file")
 //}
 
-func TestMakeSoftLink(t *testing.T) {
-	MakeSoftLink("/Users/baidu/GoglandProjects/filemerger/file/ln.file","/Users/baidu/GoglandProjects/filemerger/file/1.file")
+//func TestMakeSoftLink(t *testing.T) {
+//	MakeSoftLink("/Users/baidu/GoglandProjects/filemerger/file/ln.file","/Users/baidu/GoglandProjects/filemerger/file/1.file")
+//}
+
+func TestGetFilenameList(t *testing.T) {
+	GetFilenameList("/Users/baidu/GoglandProjects/filemerger/file/")
 }
