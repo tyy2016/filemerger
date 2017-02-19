@@ -6,14 +6,23 @@ import (
 )
 
 func NewFileMerger(directory string) *FileMerger {
+	/*
 	return &FileMerger{
 		Directory: directory,
 		Filename: make(map[string]string),
 		Count: make(map[string]int32),
 	}
+	*/
+
+	fm := new(FileMerger) // creat a variables
+	fm.Directory = directory
+	fm.Filename = make(map[string]string)
+	fm.Count = make(map[string]int32)
+
+	return fm
 }
 
-func (fm *FileMerger) Run() {
+func (fm *FileMerger) Run() { //fm:recevier *FileMerge:type Run:func
 	fmt.Printf("FileMerger is handling directory: %s\n", fm.Directory)
 	log.Infof("FileMerger is handling directory: %s\n", fm.Directory)
 
